@@ -1,0 +1,52 @@
+{
+  "name": "base",
+  "version": "1.0.0",
+  "description": "A modern, scalable template for Roblox game development using TypeScript and React",
+  "main": "index.js",
+  "scripts": {
+    "build": "rbxtsc",
+    "watch": "rbxtsc -w",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\""
+  },
+  "keywords": [
+    "roblox",
+    "typescript",
+    "react",
+    "template",
+    "game-development",
+    "rbxts"
+  ],
+  "author": "exercitus",
+  "license": "ISC",
+  "devDependencies": {
+    "@rbxts/compiler-types": "^3.0.0-types.0",
+    "@rbxts/types": "^1.0.860",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
+    "eslint-plugin-roblox-ts": "^0.0.36",
+    "prettier": "^3.6.2",
+    "roblox-ts": "^3.0.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@rbxts/colour-utils": "^1.4.1",
+    "@rbxts/net": "^3.0.10",
+    "@rbxts/object-utils": "^1.0.4",
+    "@rbxts/pretty-react-hooks": "^0.6.4",
+    "@rbxts/react": "^17.2.3",
+    "@rbxts/react-reflex": "^0.3.7",
+    "@rbxts/react-roblox": "^17.2.3",
+    "@rbxts/reflex": "^4.3.1",
+    "@rbxts/ripple": "^0.9.3",
+    "@rbxts/services": "^1.5.5",
+    "@rbxts/sift": "^0.0.11",
+    "@rbxts/signal": "^1.1.1",
+    "@rbxts/ui-labs": "^2.3.8"
+  }
+}
