@@ -63,27 +63,55 @@ src/
 - [Node.js](https://nodejs.org/) (v16 or higher)
 - [Roblox Studio](https://www.roblox.com/create)
 
-### Installation
+### Quick Start (One Command Setup)
 
-1. **Clone this repository:**
+**For Windows (PowerShell):**
+```powershell
+git clone https://github.com/ExercitusMortem/roblox-typescript-react-template.git my-new-game && cd my-new-game && .\setup.ps1
+```
+
+**For Windows (Command Prompt):**
+```cmd
+git clone https://github.com/ExercitusMortem/roblox-typescript-react-template.git my-new-game && cd my-new-game && setup.bat
+```
+
+**For macOS/Linux (Bash):**
+```bash
+git clone https://github.com/ExercitusMortem/roblox-typescript-react-template.git my-new-game && cd my-new-game && ./setup.sh
+```
+
+**What this does:**
+1. ✅ Clones the template repository
+2. ✅ Navigates into your new project directory  
+3. ✅ Prompts for your project name
+4. ✅ Updates all configuration files (package.json, default.project.json, README.md)
+5. ✅ Installs all dependencies
+6. ✅ Removes template git history
+7. ✅ Initializes a fresh git repository
+8. ✅ Makes initial commit
+9. ✅ Cleans up setup files
+10. ✅ Ready to start coding!
+
+### Manual Installation
+
+1. **Use this template on GitHub:**
+   - Click "Use this template" button on GitHub
+   - Create your new repository
+
+2. **Clone your new repository:**
    ```bash
    git clone <your-repo-url>
    cd <your-project-name>
    ```
 
-2. **Install dependencies:**
+3. **Run setup:**
    ```bash
    npm install
    ```
 
-3. **Start development with hot reloading:**
+4. **Start development:**
    ```bash
    npm run watch
-   ```
-
-4. **Build for production:**
-   ```bash
-   npm run build
    ```
 
 ### Setting up Roblox Studio
@@ -178,225 +206,3 @@ This project is licensed under the ISC License.
 ---
 
 **Happy coding! 🎮✨**
-3. **CollisionDetector** - Checks for placement validity
-4. **BuilderController** - Client-side input handling and integration
-5. **Grid Integration** - Works seamlessly with the Grid system
-
-### Key Classes
-
-#### `Builder`
-The main builder class that handles:
-- Building mode state
-- Preview model management
-- Prefab placement logic
-- Rotation functionality
-- Settings management
-
-#### `PrefabManager`
-Manages the collection of available prefabs:
-```typescript
-const prefabManager = builder.getPrefabManager();
-prefabManager.registerPrefab(prefab);
-prefabManager.selectPrefab("prefab_id");
-```
-
-#### `CollisionDetector`
-Handles collision detection for placement validation:
-- Checks for overlapping parts
-- Supports ignore lists
-- Provides detailed collision information
-
-#### `BuilderController`
-Client-side controller that integrates everything:
-- Mouse input handling
-- Grid integration
-- User input processing
-- Preview updates
-
-## Usage
-
-### Basic Setup
-
-```typescript
-import { BuilderController } from "./Builder/BuilderController";
-import { Grid } from "./Grid";
-import { Prefab } from "../shared/Builder";
-
-// Create grid
-const grid = new Grid(
-    { x: 4, y: 4, z: 4 }, // Cell size
-    { x: 0, y: 0, z: 0 }, // Cell gap
-    CellLayout.Rectangle,
-    CellSwizzle.XYZ
-);
-
-// Create builder controller
-const builderController = new BuilderController({
-    snapToGrid: true,
-    allowRotation: true,
-    showPreview: true,
-    previewTransparency: 0.7,
-    validColor: new Color3(0, 1, 0),
-    invalidColor: new Color3(1, 0, 0),
-    collisionDetection: true
-});
-
-// Set grid and enable
-builderController.setGrid(grid);
-builderController.enable();
-```
-
-### Creating Prefabs
-
-```typescript
-function createWallPrefab(): Prefab {
-    const model = new Instance("Model");
-    model.Name = "Wall";
-    
-    const part = new Instance("Part");
-    part.Size = new Vector3(4, 8, 1);
-    part.Material = Enum.Material.Brick;
-    part.Color = new Color3(0.7, 0.7, 0.7);
-    part.Anchored = true;
-    part.Parent = model;
-    
-    model.PrimaryPart = part;
-    
-    return {
-        id: "wall",
-        name: "Wall",
-        model: model,
-        size: { x: 4, y: 8, z: 1 },
-        offset: { x: 0, y: 0, z: 0 }
-    };
-}
-
-// Register the prefab
-const wallPrefab = createWallPrefab();
-builderController.registerPrefab(wallPrefab);
-builderController.selectPrefab("wall");
-```
-
-### Controls
-
-- **B Key**: Toggle building mode on/off
-- **R Key**: Rotate prefab (90 degrees clockwise)
-- **Left Click**: Place prefab at cursor position
-- **Mouse Movement**: Update preview position
-
-### Settings
-
-The builder supports various customizable settings:
-
-```typescript
-interface BuilderSettings {
-    snapToGrid: boolean;           // Enable grid snapping
-    allowRotation: boolean;        // Allow prefab rotation
-    showPreview: boolean;          // Show preview model
-    previewTransparency: number;   // Preview transparency (0-1)
-    validColor: Color3;           // Color for valid placement
-    invalidColor: Color3;         // Color for invalid placement
-    gridAlignMode: "Center" | "Corner"; // Grid alignment method
-    collisionDetection: boolean;  // Enable collision checking
-}
-```
-
-## Integration with Grid System
-
-The builder seamlessly integrates with the Grid system:
-
-```typescript
-// The grid handles coordinate conversion
-const gridPos = grid.worldToCell(worldPosition);
-const worldPos = grid.getCellCenterWorld(gridPos);
-
-// Builder uses this for snapping
-builderController.setGrid(grid);
-```
-
-## Advanced Features
-
-### Custom Collision Detection
-
-```typescript
-const collisionDetector = builder.getCollisionDetector();
-
-// Add objects to ignore
-collisionDetector.addIgnoredInstance(previewModel);
-
-// Check specific collision
-const collision = collisionDetector.checkCollision(position, size, rotation);
-if (collision.isColliding) {
-    console.log("Cannot place here:", collision.reason);
-}
-```
-
-### Programmatic Placement
-
-```typescript
-// Place directly without user input
-const result = builder.placePrefab(position, gridPosition);
-if (result.success) {
-    console.log("Placed successfully at:", result.position);
-} else {
-    console.log("Placement failed:", result.reason);
-}
-```
-
-### Managing Building State
-
-```typescript
-// Check if in building mode
-if (builder.isInBuildingMode()) {
-    // Update preview manually
-    builder.updatePreview(mousePosition, gridPosition);
-}
-
-// Get current rotation
-const rotation = builder.getCurrentRotation(); // Returns degrees
-
-// Rotate programmatically
-builder.rotatePrefab(45); // Rotate by 45 degrees
-```
-
-## Event Handling
-
-The system provides several ways to handle events:
-
-```typescript
-// Monitor placement results
-const result = builder.placePrefab(position);
-if (result.success) {
-    // Handle successful placement
-    onPrefabPlaced(result);
-}
-
-// Check placement validity before placing
-const state = builder.getPlacementState(position, prefab);
-if (state === PlacementState.Valid) {
-    // Safe to place
-}
-```
-
-## Best Practices
-
-1. **Always set a PrimaryPart** for prefab models
-2. **Use appropriate cell sizes** that match your prefab dimensions
-3. **Enable collision detection** for realistic building behavior
-4. **Register prefabs early** in your initialization code
-5. **Handle errors gracefully** when placement fails
-6. **Clean up** builder controllers when no longer needed
-
-## Cleanup
-
-Always clean up resources when done:
-
-```typescript
-// Disable and destroy the builder controller
-builderController.disable();
-builderController.destroy();
-```
-
-## Example Implementation
-
-See `BuilderExample.client.ts` for a complete working example with multiple prefabs, ground plane, and interactive controls.
