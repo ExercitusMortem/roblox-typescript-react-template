@@ -35,18 +35,23 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@rbxts/beacon": "^2.1.1",
     "@rbxts/colour-utils": "^1.4.1",
+    "@rbxts/immut": "^0.4.4-ts.0",
     "@rbxts/net": "^3.0.10",
     "@rbxts/object-utils": "^1.0.4",
     "@rbxts/pretty-react-hooks": "^0.6.4",
-    "@rbxts/react": "^17.2.3",
+    "@rbxts/react": "^17.3.0-alpha.1",
     "@rbxts/react-reflex": "^0.3.7",
     "@rbxts/react-roblox": "^17.2.3",
     "@rbxts/reflex": "^4.3.1",
     "@rbxts/ripple": "^0.9.3",
     "@rbxts/services": "^1.5.5",
+    "@rbxts/set-timeout": "^1.1.2",
     "@rbxts/sift": "^0.0.11",
     "@rbxts/signal": "^1.1.1",
+    "@rbxts/string-utils": "^1.0.3",
     "@rbxts/ui-labs": "^2.4.0"
   }
 }
+
